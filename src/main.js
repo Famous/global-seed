@@ -1,27 +1,14 @@
-/*global famous*/
-// import dependencies
-var Engine = famous.core.Engine;
-var Modifier = famous.core.Modifier;
-var Transform = famous.core.Transform;
-var ImageSurface = famous.surfaces.ImageSurface;
+define(function(require, exports, module) {
+    var Engine = require('famous/core/Engine');
+    
+    // import the AppView class using require
+    var AppView = require('views/AppView');
 
-// create the main context
-var mainContext = Engine.createContext();
+    var mainContext = Engine.createContext();
 
-// your app here
-var logo = new ImageSurface({
-    size: [200, 200],
-    content: 'http://code.famo.us/assets/famous_logo.png',
-    classes: ['double-sided']
+  // create a new instance of app view
+    var appView = new AppView();
+
+        // add the instance to the context
+    mainContext.add(appView);
 });
-
-var initialTime = Date.now();
-var centerSpinModifier = new Modifier({
-    origin: [0.5, 0.5],
-    align: [0.5, 0.5],
-    transform : function () {
-        return Transform.rotateY(.002 * (Date.now() - initialTime));
-    }
-});
-
-mainContext.add(centerSpinModifier).add(logo);
